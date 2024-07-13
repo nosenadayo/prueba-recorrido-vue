@@ -1,29 +1,33 @@
-# prueba-recorrido
+# Prueba-Recorrido
 
-This template should help get you started developing with Vue 3 in Vite.
+## Requisitos Previos
 
-## Recommended IDE Setup
+Antes de comenzar, asegúrate de tener instalado [nvm](https://github.com/nvm-sh/nvm) para gestionar diferentes versiones de Node.js.
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
+### Instalar nvm
 
-## Customize configuration
+Sigue las instrucciones de instalación de nvm en su [repositorio oficial](https://github.com/nvm-sh/nvm#installing-and-updating).
 
-See [Vite Configuration Reference](https://vitejs.dev/config/).
+### Instalar Node.js 22 con nvm
 
-## Project Setup
+Una vez que hayas instalado nvm, instala y usa Node.js versión 22:
 
 ```sh
-npm install
+nvm install 22
+nvm use 22
 ```
 
-### Compile and Hot-Reload for Development
+
+### Instalación de Dependencias
+Instala las dependencias necesarias para el proyecto usando Yarn:
+```sh
+yarn install
+```
+
+### Levantar el Servidor con Vite en Local
+Para levantar el servidor de desarrollo utilizando Vite, ejecuta:
 
 ```sh
 npm run dev
 ```
 
-### Compile and Minify for Production
-
-```sh
-npm run build
-```
