@@ -1,5 +1,11 @@
 import { ref } from 'vue';
 
+import config from '../config';
+import axios from "axios";
+
+axios.defaults.baseURL = config.apiBaseUrl;
+
+
 export function useBlockTimes() {
     const blockTimes = ref([]);
     const loading = ref(false);
@@ -8,12 +14,8 @@ export function useBlockTimes() {
     const fetchBlockTimes = async (contractId, dailyContractId) => {
         loading.value = true;
         try {
-            const response = await fetch(`http://127.0.0.1:3000/contracts/${contractId}/daily_contracts/${dailyContractId}/time_blocks`);
-            if (!response.ok) {
-                throw new Error('Failed to fetch daily contracts');
-            }
-            const data = await response.json();
-            blockTimes.value = data.data;
+            const response = await axios.get(`/contracts/${contractId}/daily_contracts/${dailyContractId}/time_blocks`);
+            blockTimes.value = response.data.data;
         } catch (err) {
             error.value = err.message;
         } finally {

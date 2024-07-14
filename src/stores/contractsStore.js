@@ -1,5 +1,9 @@
 // stores/contractsStore.js
 import { defineStore } from 'pinia';
+import axios from "axios";
+import config from '../config';
+
+axios.defaults.baseURL = config.apiBaseUrl;
 
 export const useContractsStore = defineStore('contracts', {
     state: () => ({
@@ -11,12 +15,8 @@ export const useContractsStore = defineStore('contracts', {
     actions: {
         async fetchContracts() {
             try {
-                const response = await fetch('http://127.0.0.1:3000/contracts');
-                if (!response.ok) {
-                    throw new Error('Failed to fetch contracts');
-                }
-                const data = await response.json();
-                this.contracts = data.data;
+                const response = await axios.get('/contracts');
+                this.contracts = response.data.data;
                 this.error = null;
             } catch (err) {
                 this.error = err.message;

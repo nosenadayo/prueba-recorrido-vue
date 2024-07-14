@@ -1,5 +1,4 @@
 import './assets/main.css'
-
 import {createApp, markRaw} from 'vue'
 import App from './App.vue'
 import router from './router'
@@ -15,7 +14,6 @@ pinia.use(createPersistedState)
 
 app.use(router)
 app.use(pinia);
-
 
 app.mount('#app')
 

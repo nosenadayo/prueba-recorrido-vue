@@ -12,6 +12,7 @@
             <input type="checkbox" :checked="usr.assigned" @change="toggleUser(date, time, usr, dateToAssigment)" />
             {{ usr.name }}
           </label>
+          <span v-show="user?.error_assigned">{{ user.error_assigned }}</span>
         </div>
       </div>
     </div>
@@ -23,6 +24,9 @@ import {defineComponent, nextTick, ref, toRefs, watch, watchEffect} from 'vue';
 import axios from 'axios';
 import {useDailyContractsStore} from "@/stores/dailyContractsStore.js";
 import {useUsers} from "@/api/index.js";
+import config from '../../config';
+
+axios.defaults.baseURL = config.apiBaseUrl;
 
 export default defineComponent({
   name: 'EditHours',
@@ -51,7 +55,7 @@ export default defineComponent({
     const toggleUser = async (date, time, user, dateToAssigment) => {
       user.assigned = !user.assigned
       try {
-        const url = `http://127.0.0.1:3000/contracts/${date.contract_id}/daily_contracts/${date.id}/time_blocks/${time.id}/assignments`
+        const url = `contracts/${date.contract_id}/daily_contracts/${date.id}/time_blocks/${time.id}/assignments`
         const data = {
           assignment: {
             time_block_id: time.id,
@@ -64,7 +68,6 @@ export default defineComponent({
 
       } catch (error) {
         user.assigned = !user.assigned
-        console.error(error);
       }
     };
 

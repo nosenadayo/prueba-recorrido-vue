@@ -1,5 +1,9 @@
 // stores/contractsStore.js
 import { defineStore } from 'pinia';
+import axios from "axios";
+import config from '../config';
+
+axios.defaults.baseURL = config.apiBaseUrl;
 
 export const useDailyContractsStore = defineStore('dailyContracts', {
     state: () => ({
@@ -18,20 +22,14 @@ export const useDailyContractsStore = defineStore('dailyContracts', {
                     this.contractId = null;
                     return
                 }
-                const response = await fetch(`http://127.0.0.1:3000/contracts/${contractId}/daily_contracts`);
-                if (!response.ok) {
-                    throw new Error('Failed to fetch daily contracts');
-                }
-                const data = await response.json();
+                const response = await axios.get(`/contracts/${contractId}/daily_contracts`);
 
+                const data = response.data
 
                 this.dailyContracts = await Promise.all(data.data.map(async (obj) => {
-                    const timeBlocksResponse = await fetch(`http://127.0.0.1:3000/contracts/${contractId}/daily_contracts/${obj.id}/time_blocks`);
+                    const timeBlocksResponse = await axios.get(`/contracts/${contractId}/daily_contracts/${obj.id}/time_blocks`);
 
-                    if (!timeBlocksResponse.ok) {
-                        throw new Error(`Error al obtener los time_blocks para el objeto con id ${obj.id}`);
-                    }
-                    const timeBlocks = await timeBlocksResponse.json();
+                    const timeBlocks = await timeBlocksResponse.data
                     return {
                         ...obj,
                         time_blocks: timeBlocks
