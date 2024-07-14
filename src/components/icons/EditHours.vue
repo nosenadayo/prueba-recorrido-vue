@@ -25,6 +25,7 @@ import axios from 'axios';
 import {useDailyContractsStore} from "@/stores/dailyContractsStore.js";
 import {useUsers} from "@/api/index.js";
 import config from '../../config';
+import Swal from "sweetalert2";
 
 axios.defaults.baseURL = config.apiBaseUrl;
 
@@ -68,6 +69,11 @@ export default defineComponent({
 
       } catch (error) {
         user.assigned = !user.assigned
+        Swal.fire({
+          title: "Acción no permitida",
+          text: error.response.data.error,
+          icon: "error"
+        });
       }
     };
 
