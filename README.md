@@ -4,6 +4,11 @@
 
 Antes de comenzar, asegúrate de tener instalado [nvm](https://github.com/nvm-sh/nvm) para gestionar diferentes versiones de Node.js.
 
+### Exportar Variables de Entorno
+```sh
+export VITE_BACKEND_BASE_URL=___URL_DEL_SERVIDOR___
+```
+
 ### Instalar nvm
 
 Sigue las instrucciones de instalación de nvm en su [repositorio oficial](https://github.com/nvm-sh/nvm#installing-and-updating).
